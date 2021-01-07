@@ -1,0 +1,22 @@
+server:
+  port: 8080
+  tomcat:
+    connection-timeout: 20000
+    max-connections: 500
+    accept-count: 1000
+    threads:
+      max: 300
+      min-spare: 200
+spring:
+  redis:
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        min-idle: 0
+        max-wait: -1ms
+inventory:
+    lock:
+      key: inventory::lock
+    item:
+      prefix: inventory-
