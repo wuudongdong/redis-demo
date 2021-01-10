@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.Collections;
-import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -32,8 +31,8 @@ public class RedisManager {
     }
 
     public Boolean decrement(String key, Long value) {
-        String lua = "local result = redis.call('get', KEYS[1]) - ARGV[1] " +
-                "if result >= 0 then return redis.call('set', KEYS[1], result).ok == 'OK' else return 0 end";
+        String lua = "local result = redis.call('get', KEYS[1]) - ARGV[1] "
+                + "if result >= 0 then return redis.call('set', KEYS[1], result).ok == 'OK' else return 0 end";
         RedisScript<Boolean> redisScript = RedisScript.of(lua, Boolean.class);
         return redisTemplate.execute(redisScript, Collections.singletonList(key), value);
     }
